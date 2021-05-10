@@ -1,0 +1,28 @@
+from string import punctuation, whitespace
+from stop_words import get_stop_words
+
+
+def bookfreq():
+    book = 'modest.txt'
+    stop_words = get_stop_words('en')
+    stop_words = get_stop_words('english')
+    with open(book, 'r') as fd:
+        lines = fd.readlines()[30:] #skipping the first few lines
+        words = ''
+        words = words.join(lines).split()
+        cleansed = []
+        
+    for word in words:
+        if word in punctuation or word in whitespace or word in stop_words:
+            pass
+        elif word not in stop_words: # doesn't remove all stop words
+            cleansed.append(word.lower())
+#     return cleansed
+    counter = {}
+    for token in cleansed:
+        if token not in counter:
+            counter[token] = 1
+        else:
+            counter[token] += 1        
+    return dict(sorted(counter.items(), key=lambda item: item[1], reverse=True))        
+bookfreq()
